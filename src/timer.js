@@ -34,15 +34,27 @@
     };
 
     Timer.prototype.setCountdown = function(countTo) {
-        countDown = countTo;
+        counter = countTo;
+        initialCountDown = countTo;
     };
 
     Timer.prototype.setTimerElement = function(elementToRender) {
         timerElement = elementToRender;
     };
 
+    Timer.prototype.getFormatedTime = function(seconds) {
+        var mins = ~~(seconds / 60),
+            secs = seconds % 60;
+
+        return "" + formatNumbers(mins) + ":" + formatNumbers(secs);
+    };
+
     function renderTime() {
-        timerElement.innerHTML = counter;
+        timerElement.innerHTML = this.getFormatedTime(counter);
+    }
+
+    function formatNumbers(value) {
+        return value < 10 ? "0" + value + "" : "" + value;
     }
 
     function updateTimer() {
@@ -53,7 +65,7 @@
         counter = countDown - delta;
 
         if (this.renderTime) {
-            renderTime();
+            renderTime.call(this);
         }
     }
 
