@@ -5,14 +5,79 @@
     <title></title>
     <script type="text/javascript" src="../src/polyfills.js"></script>
     <script type="text/javascript" src="../src/timer.js"></script>
+    <script type="text/javascript" src="../src/agile.js"></script>
 </head>
 <body>
+<div id="settings">
+    <select name="participants" id="participants">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+    </select>
+    <select name="duration" id="duration">
+        <option value="30">00:30</option>
+        <option value="60">01:00</option>
+        <option value="120">02:00</option>
+        <option value="300">05:00</option>
+        <option value="600">10:00</option>
+        <option value="900">15:00</option>
+        <option value="1800">30:00</option>
+        <option value="3600">60:00</option>
+    </select>
+</div>
 <div id="counter">0
 </div>
+<button id="action">Start</button>
 <script>
-    var timer = new Timer(20);
+
+    var timer = new Timer(),
+        agile = new Agile(),
+        isRunning = false,
+        sbDuration = document.getElementById('duration'),
+        sbParticipants = document.getElementById('participants'),
+        actionButton =  document.getElementById('action'),
+        formattedTime = timer.getFormatedTime(0),
+        timerElement = document.getElementById('counter');
+
+    timerElement.innerHTML = formattedTime;
     timer.renderTime = true;
-    timer.setTimerElement(document.getElementById('counter'));
+    timer.setTimerElement(timerElement);
+
+    sbDuration.onchange = sbParticipants.onchange = function() {
+        setTimer();
+    };
+
+    actionButton.onclick = function() {
+        timer.start();
+
+    };
+
+    function setTimer() {
+
+        agile.setNumParticipants(sbParticipants.value);
+        agile.setDuration(sbDuration.value);
+
+        var timePerSpeaker = Math.ceil(agile.calculateSpeakingTime());
+
+        timer.setCountdown(timePerSpeaker);
+        renderTimerElement(timePerSpeaker);
+    }
+
+    function renderTimerElement(timeToSpeak) {
+        timerElement.innerHTML = timer.getFormatedTime(timeToSpeak);
+    }
 
 </script>
 </body>
