@@ -1,45 +1,39 @@
 (function() {
 
-    var timer,
-        runs = false,
-        countDown,
-        counter,
-        timerElement,
-        initialCountDown;
-
     function Timer(countTo, renderTime) {
 
-        countDown = countTo || 15;
-        counter = countDown;
-        initialCountDown = countDown;
+        this.countDown = countTo || 15;
+        this.counter = this.countDown;
+        this.initialCountDown = this.countDown;
+        this.runs = false;
         this.renderTime = renderTime || false;
     }
 
     Timer.prototype.restart = function(newStartValue) {
-        newStartValue = newStartValue || initialCountDown;
+        newStartValue = newStartValue || this.initialCountDown;
         this.start(newStartValue);
     };
 
     Timer.prototype.stop = function() {
-        runs = false;
+        this.this.runs = false;
     };
 
     Timer.prototype.start = function(startValue) {
 
-        startValue = startValue || counter;
-        timer = Date.now();
-        runs = true;
-        countDown = startValue;
-        loop.call(this);
+        startValue = startValue || this.counter;
+        this.timer = Date.now();
+        this.runs = true;
+        this.countDown = startValue;
+        this._loop.call(this);
     };
 
     Timer.prototype.setCountdown = function(countTo) {
-        counter = countTo;
-        initialCountDown = countTo;
+        this.counter = countTo;
+        this.initialCountDown = countTo;
     };
 
     Timer.prototype.setTimerElement = function(elementToRender) {
-        timerElement = elementToRender;
+        this.timerElement = elementToRender;
     };
 
     Timer.prototype.getFormatedTime = function(seconds) {
@@ -49,36 +43,36 @@
         return "" + formatNumbers(mins) + ":" + formatNumbers(secs);
     };
 
-    function renderTime() {
-        timerElement.innerHTML = this.getFormatedTime(counter);
-    }
+    Timer.prototype._renderTime = function() {
+        this.timerElement.innerHTML = this.getFormatedTime(this.counter);
+    };
 
     function formatNumbers(value) {
         return value < 10 ? "0" + value + "" : "" + value;
     }
 
-    function updateTimer() {
+    Timer.prototype._updateTimer = function() {
 
         var newTime = Date.now(),
-            delta   = parseInt((newTime - timer)/1000);
+            delta   = parseInt((newTime - this.timer)/1000);
 
-        counter = countDown - delta;
+        this.counter = this.countDown - delta;
 
         if (this.renderTime) {
-            renderTime.call(this);
+            this._renderTime.call(this);
         }
-    }
+    };
 
-    function loop() {
+    Timer.prototype._loop = function() {
 
-        if (runs && counter > 0) {
-            window.requestAnimationFrame(loop.bind(this));
-            updateTimer.call(this);
+        if (this.runs && this.counter > 0) {
+            window.requestAnimationFrame(this._loop.bind(this));
+            this._updateTimer.call(this);
         } else {
-            runs = false;
+            this.runs = false;
             console.log("Stopped");
         }
-    }
+    };
 
     window.Timer = Timer;
 })();
