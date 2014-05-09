@@ -1,0 +1,31 @@
+{
+  "name": "agileTimer",
+  "version": "0.1.0",
+  "description": "Simple timer for time boxed meetings",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/appsbu-de/agitim.git"
+  },
+  "keywords": [
+    "javascript"
+  ],
+  "author": "Carsten Sandtner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/appsbu-de/agitim/issues"
+  },
+  "homepage": "https://github.com/appsbu-de/agitim",
+  "devDependencies": {
+    "gulp": "^3.6.2",
+    "gulp-clean": "^0.2.4",
+    "gulp-concat": "^2.2.0",
+    "gulp-jshint": "^1.5.5",
+    "gulp-preprocess": "^1.0.1",
+    "gulp-rename": "^1.2.0",
+    "gulp-uglify": "^0.2.1"
+  }
+}
