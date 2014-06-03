@@ -15,6 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "brick": "~1.0.1"
+    "brick": "~1.0.1",
+    "typicons": "~2.0.4"
   }
 }
