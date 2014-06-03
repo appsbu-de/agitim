@@ -49,17 +49,17 @@
 <button id="action">Start</button>
 <button id="next">Next</button>
 <script>
-
+(function() {
     var timer = new Timer(),
-        timerTotal = new Timer(),
-        agile = new Agile(),
-        isRunning = false,
-        sbDuration = document.getElementById('duration'),
-        sbParticipants = document.getElementById('participants'),
-        actionButton =  document.getElementById('action'),
-        formattedTime = timer.getFormatedTime(0),
-        timerElement = document.getElementById('counter'),
-        timerTotalElement = document.getElementById('counterTotal');
+            timerTotal = new Timer(),
+            agile = new Agile(),
+            isRunning = false,
+            sbDuration = document.getElementById('duration'),
+            sbParticipants = document.getElementById('participants'),
+            actionButton = document.getElementById('action'),
+            formattedTime = timer.getFormatedTime(0),
+            timerElement = document.getElementById('counter'),
+            timerTotalElement = document.getElementById('counterTotal');
 
     timerElement.innerHTML = formattedTime;
     timerTotalElement.innerHTML = formattedTime;
@@ -70,15 +70,14 @@
     timerTotal.renderTime = true;
     timerTotal.setTimerElement(timerTotalElement);
 
-    sbDuration.onchange = sbParticipants.onchange = function() {
+    sbDuration.onchange = sbParticipants.onchange = function () {
         setTimer();
     };
 
-    actionButton.onclick = function() {
+    actionButton.onclick = function () {
         timer.start();
         timerTotal.start();
     };
-
 
 
     function setTimer() {
@@ -99,6 +98,7 @@
         timerElement.innerHTML = timer.getFormatedTime(timeToSpeak);
         timerTotalElement.innerHTML = timerTotal.getFormatedTime(total);
     }
+})();
 
 </script>
 </body>

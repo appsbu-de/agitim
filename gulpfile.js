@@ -22,7 +22,7 @@ gulp.task('lint', function () {
 
 // Concatenate & Minify JS
 gulp.task('scripts', function () {
-    return gulp.src('src/*.js')
+    return gulp.src(['src/polyfills.js', 'src/timer.js', 'src/agile.js'])
         .pipe(concat('agitim.js'))
         .pipe(gulp.dest('dist'))
         .pipe(rename('all.min.js'))

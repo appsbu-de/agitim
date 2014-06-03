@@ -1,7 +1,6 @@
-(function() {
+(function(global) {
 
-    var timer = new Timer(),
-        numParticipants,
+    var numParticipants,
         meetingDuration;
 
     function Agile() {
@@ -34,6 +33,6 @@
         return (meetingDuration/numParticipants);
     };
 
-    window.Agile = Agile;
+    global.Agile = Agile;
 
-})();
+})(window);
