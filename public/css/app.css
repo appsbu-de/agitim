@@ -8,3 +8,15 @@ html, body {
 x-tabbar-tab[selected] {
     background: rgba(14, 115, 161, 1);
 }
+
+.bigicon {
+    font-size: 150%;
+}
+
+#settings {
+    padding: 0.5rem;
+}
+
+.slider {
+    width: 75%;
+}

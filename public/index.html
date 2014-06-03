@@ -12,6 +12,7 @@
     <script type="text/javascript" src="vendor/brick.min.js"></script>
     <link rel="stylesheet" href="vendor/brick.min.css">
     <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="vendor/webfonts/typicons.min.css">
 </head>
 <body>
 <!--
@@ -32,23 +33,12 @@ An x-layout will ensure the content fills the screen, and if there are header an
         </x-card>
         <x-card id="card3">
             <div id="settings">
-                <select name="participants" id="participants">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                    <option value="13">13</option>
-                    <option value="14">14</option>
-                    <option value="15">15</option>
-                </select>
+                <span class="typcn typcn-group bigicon"></span>
+                <x-slider min="1" max="15" step="1" value="5" id="participants" class="slider"></x-slider>
+                <span id="numParticipants">5</span>
+                <br>
+                    <span class="typcn typcn-time bigicon"></span>
+
                 <select name="duration" id="duration">
                     <option value="30">00:30</option>
                     <option value="60">01:00</option>
@@ -59,14 +49,14 @@ An x-layout will ensure the content fills the screen, and if there are header an
                     <option value="1800">30:00</option>
                     <option value="3600">60:00</option>
                 </select>
-            </div>
-            <div id="counter">0
-            </div>
-            <div id="counterTotal">0
-            </div>
-            <button id="action">Start</button>
-            <button id="next">Next</button>
 
+                <div id="counter">0
+                </div>
+                <div id="counterTotal">0
+                </div>
+                <button id="action"><span>Start</button>
+                <button id="next">Next</button>
+            </div>
         </x-card>
     </x-deck>
     <x-tabbar>

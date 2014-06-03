@@ -9,7 +9,8 @@ function initTimer() {
         actionButton = document.getElementById('action'),
         formattedTime = timer.getFormatedTime(0),
         timerElement = document.getElementById('counter'),
-        timerTotalElement = document.getElementById('counterTotal');
+        timerTotalElement = document.getElementById('counterTotal'),
+        viewParticipantsElement = document.getElementById('numParticipants');
 
     timerElement.innerHTML = formattedTime;
     timerTotalElement.innerHTML = formattedTime;
@@ -40,6 +41,8 @@ function initTimer() {
 
         timer.setCountdown(timePerSpeaker);
         timerTotal.setCountdown(totalTime);
+
+        viewParticipantsElement.innerHTML = sbParticipants.value;
         renderTimerElement(timePerSpeaker, totalTime);
     }
 
