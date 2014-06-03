@@ -9,7 +9,35 @@ var clean = require('gulp-clean');
 var preprocess = require('gulp-preprocess');
 var bower = require('gulp-bower');
 
-gulp.task('clean', function () {
+var config = {
+    src: {
+        font:  [
+            'vendor/typicons/src/font/typicons.eot',
+            'vendor/typicons/src/font/typicons.ttf',
+            'vendor/typicons/src/font/typicons.woff',
+            'vendor/typicons/src/font/typicons.min.css'
+        ],
+
+        brick: [
+            'vendor/brick/dist/brick.min.js',
+            'vendor/brick/dist/brick.min.css'
+        ],
+
+         scripts: [
+             'src/polyfills.js',
+             'src/timer.js',
+             'src/agile.js',
+             'src/app.js'
+         ],
+         javascript: 'src/*.js',
+
+         html: 'public/*.html',
+
+         css: 'public/css/*'
+    }
+}
+
+gulp.task('clean', function() {
     return gulp.src('dist', {read: false})
         .pipe(clean());
 });
@@ -19,20 +47,25 @@ gulp.task('bower', function() {
 });
 
 // Lint Task
-gulp.task('lint', function () {
-    return gulp.src('js/*.js')
+gulp.task('lint', function() {
+    return gulp.src(config.src.javascript)
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
 });
 
-gulp.task('brick', function() {
-   return gulp.src(['vendor/brick/dist/brick.min.js', 'vendor/brick/dist/brick.min.css']).
-       pipe(gulp.dest('dist/vendor/'));
+gulp.task('brick', ['bower'], function() {
+    return gulp.src(config.src.brick)
+        .pipe(gulp.dest('dist/vendor/'));
+});
+
+gulp.task('fonts', ['bower', 'brick'],  function() {
+    return gulp.src(config.src.font)
+        .pipe(gulp.dest('dist/vendor/webfonts/'));
 });
 
 // Concatenate & Minify JS
-gulp.task('scripts', function () {
-    return gulp.src(['src/polyfills.js', 'src/timer.js', 'src/agile.js', 'src/app.js'])
+gulp.task('scripts', function() {
+    return gulp.src(config.src.scripts)
         .pipe(concat('agitim.js'))
         .pipe(gulp.dest('dist/script'))
         .pipe(rename('all.min.js'))
@@ -40,16 +73,16 @@ gulp.task('scripts', function () {
         .pipe(gulp.dest('dist/script'));
 });
 
-gulp.task('html-debug', function () {
-    return gulp.src('public/*.html')
+gulp.task('html-debug', function() {
+    return gulp.src(config.src.html)
         .pipe(preprocess({context: {
             'DEBUG': true
         }}))
         .pipe(gulp.dest('dist/'));
 });
 
-gulp.task('html', function () {
-    return gulp.src('public/*.html')
+gulp.task('html', function() {
+    return gulp.src(config.src.html)
         .pipe(preprocess({context: {
             'BUILD': true
         }}))
@@ -57,16 +90,16 @@ gulp.task('html', function () {
 });
 
 gulp.task('css', function() {
-    return gulp.src('public/css/*')
+    return gulp.src(config.src.css)
         .pipe(gulp.dest('dist/css/'));
 })
 
 // Watch Files For Changes
-gulp.task('watch', function () {
-    gulp.watch('src/*.js', ['lint', 'scripts']);
+gulp.task('watch', function() {
+    gulp.watch(config.src.javascript, ['lint', 'scripts']);
     gulp.watch('public/**/*', ['html', 'css']);
 });
 
 // Default Task
-gulp.task('default', ['clean', 'lint', 'bower', 'brick', 'scripts', 'css', 'html-debug', 'watch']);
-gulp.task('build', ['clean', 'lint', 'bower', 'brick', 'css', 'scripts', 'html']);
+gulp.task('default', ['clean', 'lint', 'fonts', 'scripts', 'css', 'html-debug', 'watch']);
+gulp.task('build', ['clean', 'lint', 'fonts', 'css', 'scripts', 'html']);
