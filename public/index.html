@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <title></title>
     <!-- @ifdef DEBUG -->
-    <script type="text/javascript" src="agitim.js"></script>
+    <script type="text/javascript" src="script/agitim.js"></script>
     <!--@endif -->
     <!-- @ifdef BUILD -->
-    <script type="text/javascript" src="all.min.js"></script>
+    <script type="text/javascript" src="script/all.min.js"></script>
     <!--@endif -->
-
-
+    <script type="text/javascript" src="vendor/brick.min.js"></script>
+    <link rel="stylesheet" href="vendor/brick.min.css">
 </head>
 <body>
 <div id="settings">
@@ -49,57 +49,9 @@
 <button id="action">Start</button>
 <button id="next">Next</button>
 <script>
-(function() {
-    var timer = new Timer(),
-            timerTotal = new Timer(),
-            agile = new Agile(),
-            isRunning = false,
-            sbDuration = document.getElementById('duration'),
-            sbParticipants = document.getElementById('participants'),
-            actionButton = document.getElementById('action'),
-            formattedTime = timer.getFormatedTime(0),
-            timerElement = document.getElementById('counter'),
-            timerTotalElement = document.getElementById('counterTotal');
-
-    timerElement.innerHTML = formattedTime;
-    timerTotalElement.innerHTML = formattedTime;
-
-    timer.renderTime = true;
-    timer.setTimerElement(timerElement);
-
-    timerTotal.renderTime = true;
-    timerTotal.setTimerElement(timerTotalElement);
-
-    sbDuration.onchange = sbParticipants.onchange = function () {
-        setTimer();
-    };
-
-    actionButton.onclick = function () {
-        timer.start();
-        timerTotal.start();
-    };
-
-
-    function setTimer() {
-
-        var totalTime = sbDuration.value;
-
-        agile.setNumParticipants(sbParticipants.value);
-        agile.setDuration(totalTime);
-
-        var timePerSpeaker = Math.ceil(agile.calculateSpeakingTime());
-
-        timer.setCountdown(timePerSpeaker);
-        timerTotal.setCountdown(totalTime);
-        renderTimerElement(timePerSpeaker, totalTime);
-    }
-
-    function renderTimerElement(timeToSpeak, total) {
-        timerElement.innerHTML = timer.getFormatedTime(timeToSpeak);
-        timerTotalElement.innerHTML = timerTotal.getFormatedTime(total);
-    }
-})();
-
+    document.addEventListener('DOMComponentsLoaded', function(){
+        initTimer();
+    });
 </script>
 </body>
 </html>

@@ -1,0 +1,20 @@
+{
+  "name": "agitim",
+  "version": "0.0.0",
+  "homepage": "https://github.com/appsbu-de/agitim",
+  "authors": [
+    "Carsten Sandtner"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "brick": "~1.0.1"
+  }
+}

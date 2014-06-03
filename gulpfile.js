@@ -7,10 +7,15 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var clean = require('gulp-clean');
 var preprocess = require('gulp-preprocess');
+var bower = require('gulp-bower');
 
 gulp.task('clean', function () {
     return gulp.src('dist', {read: false})
         .pipe(clean());
+});
+
+gulp.task('bower', function() {
+    bower().pipe(gulp.dest('vendor/'))
 });
 
 // Lint Task
@@ -20,14 +25,19 @@ gulp.task('lint', function () {
         .pipe(jshint.reporter('default'));
 });
 
+gulp.task('brick', function() {
+   return gulp.src(['vendor/brick/dist/brick.min.js', 'vendor/brick/dist/brick.min.css']).
+       pipe(gulp.dest('dist/vendor/'));
+});
+
 // Concatenate & Minify JS
 gulp.task('scripts', function () {
-    return gulp.src(['src/polyfills.js', 'src/timer.js', 'src/agile.js'])
+    return gulp.src(['src/polyfills.js', 'src/timer.js', 'src/agile.js', 'src/app.js'])
         .pipe(concat('agitim.js'))
-        .pipe(gulp.dest('dist'))
+        .pipe(gulp.dest('dist/script'))
         .pipe(rename('all.min.js'))
         .pipe(uglify())
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('dist/script'));
 });
 
 gulp.task('html-debug', function () {
@@ -53,5 +63,5 @@ gulp.task('watch', function () {
 });
 
 // Default Task
-gulp.task('default', ['clean', 'lint', 'scripts', 'html-debug', 'watch']);
-gulp.task('build', ['clean', 'lint', 'scripts', 'html']);
+gulp.task('default', ['clean', 'lint', 'bower', 'brick', 'scripts', 'html-debug', 'watch']);
+gulp.task('build', ['clean', 'lint', 'bower', 'brick', 'scripts', 'html']);
