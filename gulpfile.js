@@ -56,12 +56,17 @@ gulp.task('html', function () {
         .pipe(gulp.dest('dist/'));
 });
 
+gulp.task('css', function() {
+    return gulp.src('public/css/*')
+        .pipe(gulp.dest('dist/css/'));
+})
+
 // Watch Files For Changes
 gulp.task('watch', function () {
     gulp.watch('src/*.js', ['lint', 'scripts']);
-    gulp.watch('public/**/*', ['html']);
+    gulp.watch('public/**/*', ['html', 'css']);
 });
 
 // Default Task
-gulp.task('default', ['clean', 'lint', 'bower', 'brick', 'scripts', 'html-debug', 'watch']);
-gulp.task('build', ['clean', 'lint', 'bower', 'brick', 'scripts', 'html']);
+gulp.task('default', ['clean', 'lint', 'bower', 'brick', 'scripts', 'css', 'html-debug', 'watch']);
+gulp.task('build', ['clean', 'lint', 'bower', 'brick', 'css', 'scripts', 'html']);

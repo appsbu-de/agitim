@@ -1,0 +1,10 @@
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: Helvetica, Arial, Verdana, sans;
+}
+
+x-tabbar-tab[selected] {
+    background: rgba(14, 115, 161, 1);
+}
