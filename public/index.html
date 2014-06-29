@@ -24,37 +24,41 @@ An x-layout will ensure the content fills the screen, and if there are header an
 
     <x-deck selected-index="0">
         <x-card id="card1">
-            <div id="settings">
-                <div class="selectgroup">
-                    <span class="typcn typcn-group bigicon"></span>
-                    <x-slider min="1" max="15" step="1" value="5" id="participants" class="slider"></x-slider>
-                    <span id="numParticipants">5</span>
-                </div>
-
-                <div class="selectgroup">
-                    <span class="typcn typcn-time bigicon"></span>
-                    <div class="select-style">
-                        <select name="duration" id="duration">
-                            <option value="30">00:30</option>
-                            <option value="60">01:00</option>
-                            <option value="120">02:00</option>
-                            <option value="300">05:00</option>
-                            <option value="600">10:00</option>
-                            <option value="900">15:00</option>
-                            <option value="1800">30:00</option>
-                            <option value="3600">60:00</option>
-                        </select>
+            <x-flipbox id="counterBox">
+                <div id="settings">
+                    <div class="selectgroup">
+                        <span class="typcn typcn-group bigicon"></span>
+                        <x-slider min="1" max="15" step="1" value="5" id="participants" class="slider"></x-slider>
+                        <span id="numParticipants">5</span>
                     </div>
+
+                    <div class="selectgroup">
+                        <span class="typcn typcn-time bigicon"></span>
+                        <div class="select-style">
+                            <select name="duration" id="duration">
+                                <option value="30">00:30</option>
+                                <option value="60">01:00</option>
+                                <option value="120">02:00</option>
+                                <option value="300">05:00</option>
+                                <option value="600">10:00</option>
+                                <option value="900">15:00</option>
+                                <option value="1800">30:00</option>
+                                <option value="3600">60:00</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button id="action"><span>Start</button>
                 </div>
-                <div id="counter">
-                    <x-countdown id="timerPerAttendee" render="true"></x-countdown>
+                <div id="countDown">
+                    <div id="counter">
+                        <x-countdown id="timerPerAttendee" render="true"></x-countdown>
+                    </div>
+                    <div id="counterTotal">
+                        <x-countdown id="timerTotal" render="true"></x-countdown>
+                    </div>
+                    <botton id="cancelTimer">Cancel</botton>
                 </div>
-                <div id="counterTotal">
-                    <x-countdown id="timerTotal" render="true"></x-countdown>
-                </div>
-                <button id="action"><span>Start</button>
-                <button id="next">Next</button>
-            </div>
+            </x-flipbox>
         </x-card>
         <x-card id="card2">
             <h1>Sed ut</h1>
