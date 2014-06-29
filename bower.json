@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "brick": "~1.0.1",
-    "typicons": "~2.0.4"
+    "typicons": "~2.0.4",
+    "x-tag-countdown": "~0.1.3"
   }
 }
